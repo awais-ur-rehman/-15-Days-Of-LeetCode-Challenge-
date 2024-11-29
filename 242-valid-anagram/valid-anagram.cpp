@@ -1,23 +1,20 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        if (s.length() != t.length()) {
+       vector<int> memo = vector<int>(26, 0);
+       for (char c: s) {
+            memo[c - 'a'] += 1;
+       }
+       for (char c: t) {
+            memo[c - 'a'] -= 1;
+       }
+
+       for (int i = 0; i < 26; i++) {
+        if (memo[i] != 0) {
             return false;
         }
+       }
 
-        int count[26] = {0};
-
-        for (int i = 0; i < s.length(); i++) {
-            count[s[i] - 'a']++;
-            count[t[i] - 'a']--;
-        }
-
-        for (int i = 0; i < 26; i++) {
-            if (count[i] != 0) {
-                return false;
-            }
-        }
-
-        return true;
+       return true;
     }
 };
